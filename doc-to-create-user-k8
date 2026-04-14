@@ -1,0 +1,15 @@
+1) generate a private key:
+openssl genrsa -out krish.key 2048
+
+2) certificate singing request with the user:
+openssl req -new -key krish.key -out krish.csr -subj "/CN=krish/O=devops"
+
+3) use certifaicate singing request and singing it with certificate signing authority:
+openssl x509 -req -CA ~/path/ca.crt -CAkey ~/path/ca.key -CAcreateserial -days 730 -in krish.csr -out krish.crt
+
+4) now using this certificate to create user in kubernetes cluster:
+kubectl config set-credentials krish --client-certificate=krish.crt --client-key=krish.key
+
+5) now setting context for this newly added user:
+kebectl config set-context krish-kind --cluster=docker-desktop --user=krish
+
