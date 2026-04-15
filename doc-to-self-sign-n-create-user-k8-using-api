@@ -60,7 +60,7 @@ kubectl get csr krish -o jsonpath='{.status.certificate}'| base64 -d > krish.crt
 kubectl config set-credentials krish --client-certificate=krish.crt --embed-certs=true
 
 7) now setting context for this newly added user:
-kebectl config set-context krish-kind --cluster=docker-desktop --user=krish
+kubectl config set-context krish-kind --cluster=docker-desktop --user=krish
 
 To CHECK: kubectl --context krish auth whoami
 
